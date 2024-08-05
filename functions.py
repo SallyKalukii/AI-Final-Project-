@@ -11,11 +11,7 @@ feature_names = ['value', 'avg_points_last_38', 'avg_minutes_last_38',
 to_be_dropped = ['_id', 'name', 'position', 'opponent_team', 'total_points', 'season']
 
 def get_latest_player_stats(collection, name):
-    document = collection.aggregate([
-    { '$match': { 'name': name } },
-    { '$sort': { '_id': -1 } },
-    { '$limit': 1 }
-    ])
+    document = collection.find({'name':name})
     document = list(document)
     return document[-1] if len(document) > 0 else []
 
@@ -34,7 +30,7 @@ def predict(data, pipeline, model, fixture_data):
 
 def get_top_10_forwards(collection, forward_model, forward_pipeline):
    
-    df = pd.read_csv('C:/Users/User/Desktop/AI-Final-Project-/cleaned_players.csv')
+    df = pd.read_csv('cleaned_players.csv')
     df['name'] = df['first_name']+' '+df['second_name']
     df = df[df['element_type'] == 'FWD']
     points = []
@@ -53,7 +49,7 @@ def get_top_10_forwards(collection, forward_model, forward_pipeline):
 
 
 def get_top_10_midfielders(collection, midfielder_model, midfielder_pipeline):
-    df = pd.read_csv('C:/Users/User/Desktop/AI-Final-Project-/cleaned_players.csv')
+    df = pd.read_csv('cleaned_players.csv')
     df['name'] = df['first_name']+' '+df['second_name']
     df = df[df['element_type'] == 'MID']
     points = []
@@ -71,7 +67,7 @@ def get_top_10_midfielders(collection, midfielder_model, midfielder_pipeline):
     return points[:10]
 
 def get_top_10_defenders(collection, defender_model, defender_pipeline):
-    df = pd.read_csv('C:/Users/User/Desktop/AI-Final-Project-/cleaned_players.csv')
+    df = pd.read_csv('cleaned_players.csv')
     df['name'] = df['first_name']+' '+df['second_name']
     df = df[df['element_type'] == 'DEF']
     points = []
@@ -89,7 +85,7 @@ def get_top_10_defenders(collection, defender_model, defender_pipeline):
     return points[:10]
 
 def get_top_10_goalkeepers(collection, goalkeeper_model, goalkeeper_pipeline):
-    df = pd.read_csv('C:/Users/User/Desktop/AI-Final-Project-/cleaned_players.csv')
+    df = pd.read_csv('cleaned_players.csv')
     df['name'] = df['first_name']+' '+df['second_name']
     df = df[df['element_type'] == 'GK']
     points = []
