@@ -33,7 +33,8 @@ with open('goalkeeper_model.pkl', 'rb') as file:
 
 
 
-client = MongoClient('mongodb+srv://tanitoluwaadebayo:VRZzIOdFQbbRsdzS@cluster0.5tl5idr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+client = MongoClient('mongodb+srv://tanitoluwaadebayo:VRZzIOdFQbbRsdzS@cluster0.5tl5idr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', 
+ssl=True, ssl_cert_reqs=None)
 db = client['Cluster0']
 collection = db['FPL_Data']
 print('Connected to database!')
